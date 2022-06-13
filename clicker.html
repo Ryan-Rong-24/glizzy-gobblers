@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Clicker Game</title>
+    </head>
+    <body style="background-color:rgb(255,64,64);text-align:center;">
+        <div class="click">
+            <button  onclick=oncl() style="background-color: rgba(0,0,0,0);border: 0px solid rgba(0,0,0,0);"><img id="hotdog" src="https://static.wixstatic.com/shapes/395d3e_2036d6f376a444ef828a691f4ecb8648.svg" style ="width:300px;height:400px;"></button>
+        </div>
+        <img class="fries" id="french" src="https://static.wixstatic.com/shapes/7cbf86_3af96a7c83214d5db311be43360faca0.svg" alt="" style="width:50px;">
+        <div>
+            <p id="p" style="font-size: 50px;font-family: Avenir;color: rgb(250, 252, 104);">0 Points</p>
+            <button onclick=upgrade() id="u" style="border: 0px solid rgba(0,0,0,0);font-size: 50px;background-color:rgba(0,0,0,0);font-family: Avenir;color: rgb(250, 252, 104);">Upgrade for 100</button>
+        </div>
+    </body>
+</html>
+
+<style>
+
+    .click:active{
+        transition-duration: 0.3s;
+        transform:scale(1.1,1.1);
+    }
+
+    .fries{
+        opacity: 0;
+    }
+
+    @keyframes fade {
+        0%{opacity: 1;}
+        100%{opacity: 0;}
+    }
+
+    
+</style>
+
+<script>
+
+var score=0;
+var lv=1;
+function oncl(){
+    score+=lv;
+    textUpdate();    
+}
+function textUpdate(){
+    var count = 0;
+    document.getElementById("p").innerHTML=score+" Points";   
+    // document.getElementById("french").style.opacity=1;  
+    // document.getElementById("french").style.animation = "fade 0.3s 1";
+    var a = setInterval(fries,100);
+    function fries(){
+        if(count==1){
+            clearInterval(a);
+            count = 0;
+            document.getElementById("french").style.animation = ""
+        } else {
+            count++;
+            document.getElementById("french").style.animation = "fade 1s infinite";
+        }
+
+    }
+};
+function upgrade(){
+    switch (lv) {
+        case 1:
+            if (score>=100){
+                lv++;
+                score-=100; 
+                document.getElementById("u").innerHTML= "Upgrade for 500";
+                textUpdate();
+                document.getElementById('hotdog').src="https://static.wixstatic.com/shapes/395d3e_bca9b6913054421da38d35f693a63b07.svg";
+                
+            }
+            break;
+        case 2:
+            if (score>=500){
+                lv=4;
+                score-=500;
+                document.getElementById("u").innerHTML= "Upgrade for 1000";
+                textUpdate();
+                document.getElementById('hotdog').src="https://static.wixstatic.com/shapes/395d3e_b09490e1cb424567bcf724fdf2d9b07b.svg";
+            }
+            break;
+        case 4:
+            if (score>=1000){
+                lv=8;
+                score-=1000;   
+                document.getElementById("u").innerHTML= "Upgrade for 2000";
+                textUpdate();
+                document.getElementById('hotdog').src="https://static.wixstatic.com/shapes/395d3e_d094c728f4d94a47a6e53e7ef3214514.svg";
+            }
+            break;
+        case 8:
+            if (score>=2000){
+                lv=16;
+                score-=2000;   
+                document.getElementById("u").innerHTML= "Upgrade for ???";
+                textUpdate();
+                document.getElementById('hotdog').src="https://static.wixstatic.com/shapes/395d3e_16e124a01f6c49b79bb035d4807bb777.svg";
+            }
+            break;
+        case 16:
+            if (score>=10000){
+                lv=32;
+                score-=10000;   
+                document.getElementById("u").innerHTML= "Fully Upgraded!";
+                textUpdate();
+                document.getElementById('hotdog').src="https://static.wixstatic.com/shapes/395d3e_9a5b1f181f9c4018899f22465ea4fba5.svg";
+            }
+            break;
+    }
+}
+
+</script>
